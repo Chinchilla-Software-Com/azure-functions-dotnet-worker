@@ -69,7 +69,8 @@ namespace Microsoft.Azure.Functions.Worker.Sdk.Tasks
             {
                 try
                 {
-                    FunctionMetadataJsonWriter.WriteMetadata(functions, OutputPath!);
+                    //FunctionMetadataJsonWriter.WriteMetadata(functions, OutputPath!);
+                    FunctionMetadataCSharpWriter.WriteMetadata(functions, OutputPath!);
                     break;
                 }
                 catch (IOException ex)
