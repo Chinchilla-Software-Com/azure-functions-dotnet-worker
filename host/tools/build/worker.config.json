@@ -2,8 +2,8 @@
   "description": {
     "language": "dotnet-isolated",
     "extensions": [ ".dll" ],
-    "defaultExecutablePath": "%FUNCTIONS_WORKER_DIRECTORY%/bin/FunctionsNetHost.exe",
-    "defaultWorkerPath": "bin/FunctionsNetHost.exe",
+    "defaultExecutablePath": "%FUNCTIONS_WORKER_DIRECTORY%/bin/x64/FunctionsNetHost.exe",
+    "defaultWorkerPath": "bin/x64/FunctionsNetHost.exe",
     "workerIndexing": "true"
   },
   "profiles": [
@@ -19,6 +19,25 @@
       "description": {
         "defaultExecutablePath": "%FUNCTIONS_WORKER_DIRECTORY%/bin/FunctionsNetHost",
         "defaultWorkerPath": "bin/FunctionsNetHost"
+      }
+    },
+    {
+      "profileName": "DotnetIsolatedWinX86",
+      "conditions": [
+        {
+          "conditionType": "hostProperty",
+          "conditionName": "platform",
+          "conditionExpression": "WINDOWS"
+        },
+        {
+          "conditionType": "environment",
+          "conditionName": "SITE_BITNESS",
+          "conditionExpression": "x86"
+        }
+      ],
+      "description": {
+        "defaultExecutablePath": "%FUNCTIONS_WORKER_DIRECTORY%/bin/x86/FunctionsNetHost.exe",
+        "defaultWorkerPath": "bin/x86/FunctionsNetHost.exe"
       }
     }
   ]

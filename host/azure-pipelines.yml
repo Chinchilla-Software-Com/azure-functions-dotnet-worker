@@ -68,23 +68,42 @@ stages:
               includePreviewVersions: true
 
           - task: DotnetCoreCLI@2
-            displayName: "Dotnet Publish"
+            displayName: "Dotnet Publish(X64)"
             inputs:
               command: "publish"
               publishWebProjects: false
               zipAfterPublish: false
-              arguments: "-c Release -r win-x64 -o $(Build.ArtifactStagingDirectory)/output/windows"
+              arguments: "-c Release -r win-x64 -o $(Build.ArtifactStagingDirectory)/output/windows/x64"
+              workingDirectory: $(Build.SourcesDirectory)/host/src/FunctionsNetHost
+
+          - task: DotnetCoreCLI@2
+            displayName: "Dotnet Publish(X86)"
+            inputs:
+              command: "publish"
+              publishWebProjects: false
+              zipAfterPublish: false
+              arguments: "-c Release -r win-x86 -o $(Build.ArtifactStagingDirectory)/output/windows/x86"
               workingDirectory: $(Build.SourcesDirectory)/host/src/FunctionsNetHost
 
           - task: CopyFiles@2
-            displayName: "Copy needed files"
+            displayName: "Copy needed files(x64)"
             inputs:
-              SourceFolder: "$(Build.ArtifactStagingDirectory)/output/windows"
+              SourceFolder: "$(Build.ArtifactStagingDirectory)/output/windows/x64"
               # Publish output will include many other files. We only need FunctionsNetHost.exe & nethost.dll
               Contents: |
                 FunctionsNetHost.exe
                 nethost.dll
-              TargetFolder: "$(Build.ArtifactStagingDirectory)/output/windows_filtered"
+              TargetFolder: "$(Build.ArtifactStagingDirectory)/output/windows_filtered/x64"
+
+          - task: CopyFiles@2
+            displayName: "Copy needed files(x86)"
+            inputs:
+              SourceFolder: "$(Build.ArtifactStagingDirectory)/output/windows/x86"
+              # Publish output will include many other files. We only need FunctionsNetHost.exe & nethost.dll
+              Contents: |
+                FunctionsNetHost.exe
+                nethost.dll
+              TargetFolder: "$(Build.ArtifactStagingDirectory)/output/windows_filtered/x86"
 
           - task: PublishPipelineArtifact@1
             inputs:
@@ -127,6 +146,13 @@ stages:
             inputs:
               SourceFolder: "$(Build.ArtifactStagingDirectory)/windows_output"
               TargetFolder: "$(Build.SourcesDirectory)/host/dist/windows"
+
+          - task: PowerShell@2
+            displayName: "Print contents"
+            inputs:
+              targetType: 'inline'
+              script: |
+                Get-ChildItem -Path "$(Build.SourcesDirectory)/host/dist/windows"
 
           - task: NuGetCommand@2
             displayName: "Nuget pack"
