@@ -101,6 +101,14 @@ namespace Microsoft.Azure.Functions.Tests.E2ETests.Storage
                 return Task.FromResult(logs.Count() >= 1);
             });
 
+            Console.WriteLine("All logs");
+            var logsArray = logs.ToArray();
+            foreach (var log in logsArray)
+            {
+                Console.WriteLine(log);
+            }
+            Console.WriteLine($"Total log entry count:{logsArray.Length}");
+
             var lastLog = logs.Last();
             int subStringStart = lastLog.LastIndexOf(key) + key.Length;
             var result = lastLog[subStringStart..];
