@@ -27,6 +27,7 @@ namespace Microsoft.Azure.WebJobs.Extensions.FunctionMetadataLoader
 
         private static readonly string _dotnetIsolatedWorkerConfigPath = ConfigurationPath.Combine("languageWorkers", "dotnet-isolated", "workerDirectory");
         private static readonly string _dotnetIsolatedWorkerExePath = ConfigurationPath.Combine("languageWorkers", "dotnet-isolated", ExePathPropertyName);
+        private static readonly string _dotnetIsolatedWorkerPlaceholderSupported = ConfigurationPath.Combine("languageWorkers", "dotnet-isolated", "placeholderSupported");
 
         private WorkerConfigDescription? newWorkerDescription;
 
@@ -41,7 +42,8 @@ namespace Microsoft.Azure.WebJobs.Extensions.FunctionMetadataLoader
             builder.ConfigurationBuilder.AddInMemoryCollection(new Dictionary<string, string>
             {
                 { _dotnetIsolatedWorkerConfigPath, appRootPath },
-                { _dotnetIsolatedWorkerExePath, newWorkerDescription.DefaultExecutablePath! }
+                { _dotnetIsolatedWorkerExePath, newWorkerDescription.DefaultExecutablePath! },
+                { _dotnetIsolatedWorkerPlaceholderSupported, bool.TrueString }
             });
 
             Environment.SetEnvironmentVariable("DOTNET_NOLOGO", "true");
