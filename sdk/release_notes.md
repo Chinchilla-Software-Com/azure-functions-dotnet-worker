@@ -6,7 +6,7 @@
 
 ### Microsoft.Azure.Functions.Worker.Sdk <version> (meta package)
 
-- <entry>
+- Update worker.config generation to accurate worker executable name (#1053)
 
 ### Microsoft.Azure.Functions.Worker.Sdk.Analyzers <version> (delete if not updated)
 
