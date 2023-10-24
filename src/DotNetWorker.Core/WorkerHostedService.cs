@@ -24,7 +24,7 @@ namespace Microsoft.Azure.Functions.Worker
         {
             await _worker.StartAsync(cancellationToken);
 
-            _diagnostics.OnApplicationCreated(WorkerInformation.Instance);
+            _diagnostics.OnApplicationCreated(null);
         }
 
         public Task StopAsync(CancellationToken cancellationToken)

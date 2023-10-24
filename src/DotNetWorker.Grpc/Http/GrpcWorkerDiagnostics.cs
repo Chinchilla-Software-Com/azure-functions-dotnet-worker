@@ -42,18 +42,6 @@ namespace Microsoft.Azure.Functions.Worker.Grpc
 
         public void OnApplicationCreated(WorkerInformation workerInfo)
         {
-            var message = new StreamingMessage
-            {
-                RpcLog = new RpcLog
-                {
-                    EventId = nameof(OnApplicationCreated),
-                    Level = RpcLog.Types.Level.Debug,
-                    LogCategory = RpcLog.Types.RpcLogCategory.System,
-                    Message = JsonSerializer.Serialize(workerInfo, SerializerOptions)
-                }
-            };
-
-            _outputChannel.TryWrite(message);
         }
 
         public void OnFunctionLoaded(FunctionDefinition definition)
