@@ -40,7 +40,7 @@ namespace Microsoft.Azure.Functions.Worker.Sdk.Generators
             /// Takes in candidate methods from the user compilation and parses them to return function metadata info as GeneratorFunctionMetadata.
             /// </summary>
             /// <param name="methods">List of candidate methods from the syntax receiver.</param>
-            /// <param name="parsingContext">An instance of <see cref="FunctionsMetadataParsingContext"/>. Optional.</param>
+            /// <param name="parsingContext">Optional. An instance of <see cref="FunctionsMetadataParsingContext"/></param>
             public IReadOnlyList<GeneratorFunctionMetadata> GetFunctionMetadataInfo(List<IMethodSymbol> methods, FunctionsMetadataParsingContext? parsingContext = null)
             {
                 var result = ImmutableArray.CreateBuilder<GeneratorFunctionMetadata>();
@@ -56,7 +56,7 @@ namespace Microsoft.Azure.Functions.Worker.Sdk.Generators
                     }
 
                     var assemblyName = method.ContainingAssembly.Name;
-                    var scriptFile = $"{assemblyName}{parsingContext?.ScriptFileExtension ?? ".dll"}";
+                    var scriptFile = $"{assemblyName}{(parsingContext?.ScriptFileExtension) ?? ".dll"}";
 
                     var newFunction = new GeneratorFunctionMetadata
                     {
